@@ -10,15 +10,6 @@ using UnityEngine;
 
 namespace BugFixes
 {
-    // TODO:
-    // - Fix bug where multiplayer don't spawn the same amount of items in chests (DONE!)
-    // - Fix bug where hut and tent doorframe can be umpassable (DONE!)
-    // - Fix bug where diagonal movement boosts jumping (add a way to deactivate this fix)
-    // - Fix bug where one shotting Woodmen don't trigger their hostility towards you
-    // - Fix bug where resources can spawn on/inside structures
-    // - Fix bug where wheat renders late
-    // - Fix bug where shallow water slows down players
-
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
     public class Plugin : BaseUnityPlugin
     {
