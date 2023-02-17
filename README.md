@@ -8,7 +8,7 @@ Note that all players in a lobby need to have this mod installed to play togethe
 
 ## Fixes
 
-- Fixed a bug where all players wouldn't spawn the same amount of items in chests. The items itself would be the same, but the amount would be different (ex: 6 red apples vs 3 red apples for two different players).
+- Fixed a bug where all players wouldn't spawn the same amount of items in chests. The items themselves would be the same, but the amount would be different (ex: 6 red apples vs 3 red apples for two different players).
 - Fixed a bug where houses and tents would be generated in a way that would make it impossible to get inside (houses) or under (tents).
 
 ## TODO: Future fixes
