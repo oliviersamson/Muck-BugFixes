@@ -10,7 +10,14 @@ using UnityEngine;
 
 namespace BugFixes
 {
-    [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
+    public static class Globals 
+    {
+        public const string PLUGIN_GUID = "muck.mrboxxy.bugfixes";
+        public const string PLUGIN_NAME = "BugFixes";
+        public const string PLUGIN_VERSION = "1.0.0";
+    }
+
+    [BepInPlugin(Globals.PLUGIN_GUID, Globals.PLUGIN_NAME, Globals.PLUGIN_VERSION)]
     public class Plugin : BaseUnityPlugin
     {
         public static ManualLogSource Log;
@@ -24,7 +31,7 @@ namespace BugFixes
             Log = base.Logger;
             randomSeedSet = false;
 
-            harmony = new Harmony(PluginInfo.PLUGIN_GUID);
+            harmony = new Harmony(Globals.PLUGIN_NAME);
             harmony.PatchAll(typeof(BugFixes));
             harmony.PatchAll(typeof(GenerateCamp_SpawnObjects_Patch));
             harmony.PatchAll(typeof(GenerateCamp_SpawnObjects2_Patch));
