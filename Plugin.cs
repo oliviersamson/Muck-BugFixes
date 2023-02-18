@@ -15,7 +15,7 @@ namespace BugFixes
     {
         public const string PLUGIN_GUID = "muck.mrboxxy.bugfixes";
         public const string PLUGIN_NAME = "BugFixes";
-        public const string PLUGIN_VERSION = "1.0.0";
+        public const string PLUGIN_VERSION = "1.1.0";
     }
 
     [BepInPlugin(Globals.PLUGIN_GUID, Globals.PLUGIN_NAME, Globals.PLUGIN_VERSION)]
@@ -110,8 +110,6 @@ namespace BugFixes
                 {
                     if (result)
                     {
-                        Plugin.Log.LogInfo($"Retrying to spawn camp structure for camp at: {instance.gameObject.transform.position}");
-
                         // Increase camp radius in order to not have any infinite loops due to always failing to spawn object
                         AccessTools.Field(typeof(GenerateCamp), "campRadius").SetValue(instance, (float)AccessTools.Field(typeof(GenerateCamp), "campRadius").GetValue(instance) + 1.0f);
                     }
@@ -156,7 +154,6 @@ namespace BugFixes
                             // If tent distance to ground is too short
                             if (hit.distance < 2.0f)
                             {
-                                Plugin.Log.LogInfo($"Tent placement redone because its distance to the ground was too low");
                                 //Plugin.Log.LogInfo($"Tent distance to ground is too short!");
                                 //Plugin.Log.LogInfo($"Raycast hit at {hit.point}");
                                 //Plugin.Log.LogInfo($"Distance = {hit.distance}");
@@ -236,8 +233,6 @@ namespace BugFixes
                 {
                     if (result)
                     {
-                        Plugin.Log.LogInfo($"Retrying to spawn house for camp at: {instance.gameObject.transform.position}");
-
                         // Increase camp radius in order to not have any infinite loops due to always failing to spawn object
                         AccessTools.Field(typeof(GenerateCamp), "campRadius").SetValue(instance, (float)AccessTools.Field(typeof(GenerateCamp), "campRadius").GetValue(instance) + 1.0f);
                     }
@@ -278,7 +273,6 @@ namespace BugFixes
                             // If tent distance to ground is too short
                             if (hit.distance < 2.0f)
                             {
-                                Plugin.Log.LogInfo($"House placement redone because its distance to the ground was too low");
                                 //Plugin.Log.LogInfo($"House distance to ground is too short!");
                                 //Plugin.Log.LogInfo($"Raycast hit at {hit.point}");
                                 //Plugin.Log.LogInfo($"Distance = {hit.distance}");
@@ -359,7 +353,6 @@ namespace BugFixes
                             // If tent distance to ground is too short
                             if (hit.distance < 2.0f)
                             {
-                                Plugin.Log.LogInfo($"House placement redone because its distance to the ground was too low");
                                 //Plugin.Log.LogInfo($"House distance to ground is too short!");
                                 //Plugin.Log.LogInfo($"Raycast hit at {hit.point}");
                                 //Plugin.Log.LogInfo($"Distance = {hit.distance}");
@@ -405,13 +398,11 @@ namespace UnityEngine
             {
                 if (result.collider.CompareTag("Camp"))
                 {
-                    Plugin.Log.LogInfo($"Hit camp structure at = {result.point}");
                     result = default(RaycastHit);
                 }
                 // Add new condition to also look for camp houses (somehow houses spawned by GenerateCamp don't have the Camp tag)
                 else if (result.collider.name.Contains("House"))
                 {
-                    Plugin.Log.LogInfo($"Hit House at = {result.point}");
                     result = default(RaycastHit);
                 }
                 if (WorldUtility.WorldHeightToBiome(result.point.y) == TextureData.TerrainType.Water)

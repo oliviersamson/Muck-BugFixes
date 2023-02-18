@@ -10,7 +10,8 @@ Note that all players in a lobby need to have this mod installed to play togethe
 
 - Fixed a bug where all players wouldn't spawn the same amount of items in chests. The items themselves would be the same, but the amount would be different (ex: 6 red apples vs 3 red apples for two different players).
 - Fixed a bug where houses and tents would be generated in a way that would make it impossible to get inside (houses) or under (tents).
-- Fixed a bug where camp structures can spawn very close or in another camp structure, or house.
+- Fixed a bug where camp structures could spawn very close or in another camp structure, or house.
+- Fixed a bug where the full amount of structures calculated for a camp wouldn't be spawned (which could be seen in the BepInEx console with a log message, e.g.: "spawned 1 / 3")
 
 ## TODO: Future fixes
 
@@ -21,4 +22,4 @@ Note that all players in a lobby need to have this mod installed to play togethe
 - Fix bug where shallow water slows down players.
 - Fix bug where Chief's spinning attack continues after his death, still causing damage to players in range.
 - Fix bug where non-camp structures can spawn very close or in another structure.
-- Fix bug where the full amount of structures calculated won't be spawned in the world (which can be seen in the BepInEx console with a log message, e.g.: "spawned 1 / 3")
+- Fix bug where the full amount of non-camp structures calculated won't be spawned in the world
