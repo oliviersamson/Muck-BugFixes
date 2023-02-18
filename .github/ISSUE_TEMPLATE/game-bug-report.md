@@ -3,8 +3,8 @@ name: Game Bug report
 about: Create a report to describe a bug in game (not related to this mod) that you
   want fixed
 title: ''
-labels: ''
-assignees: ''
+labels: Bug Fix Request
+assignees: oliviersamson
 
 ---
 
