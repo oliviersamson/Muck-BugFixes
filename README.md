@@ -23,3 +23,4 @@ Note that all players in a lobby need to have this mod installed to play togethe
 - Fix bug where Chief's spinning attack continues after his death, still causing damage to players in range.
 - Fix bug where non-camp structures can spawn very close or in another structure.
 - Fix bug where the full amount of non-camp structures calculated won't be spawned in the world
+- Fix bug where some trees pop out of render before other trees further from them
