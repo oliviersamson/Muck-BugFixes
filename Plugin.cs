@@ -1,5 +1,6 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
+using BugFixes;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
@@ -69,6 +70,32 @@ namespace BugFixes
             Label label = generator.DefineLabel();
             codeMatcher.SetInstructionAndAdvance(codeMatcher.InstructionAt(0).WithLabels(label));
 
+            // Goto FindPos call
+            codeMatcher = codeMatcher.MatchForward(true,
+                new CodeMatch(OpCodes.Ldarg_3),
+                new CodeMatch(OpCodes.Call));
+
+            // Load the GameObject obj (argument at index 1) into top of stack
+            codeMatcher = codeMatcher.InsertAndAdvance(new CodeInstruction(OpCodes.Ldarg_1));
+
+            // Emit call to delagate, consuming GameObject obj
+            // (Patch to get a sphere radius matching the object's size)
+            codeMatcher = codeMatcher.InsertAndAdvance(Transpilers.EmitDelegate<Func<GameObject, float>>(
+                (gameObject) => {
+
+                    // Get the max extent in x,z for sphere radius
+                    return Math.Max(gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.extents.x, gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.extents.z);
+                }));
+
+            // Emit call to delagate, consuming current GenerateCamp instance, ConsistentRandom rand (argument at index 3) and float radius (pushed into stact by previous delegate)
+            // (Patch to get a RaycastHit with the given sphereRadius)
+            codeMatcher = codeMatcher.SetInstructionAndAdvance(Transpilers.EmitDelegate<Func<GenerateCamp, ConsistentRandom, float, RaycastHit>>(
+                (instance, rand, sphereRadius) => {
+
+                    // Call new GenerateCamp.FindPos() method with new argument radius
+                    return instance.FindPos(rand, sphereRadius);
+                }));
+
             // Match the instruction loading gameObject on stack for GetComponent call
             codeMatcher = codeMatcher.MatchForward(true, 
                 new CodeMatch(OpCodes.Ldc_R4),
@@ -121,7 +148,7 @@ namespace BugFixes
                     }
 
                     return distanceToGroundTooShort;
-            }));
+                }));
 
             // Jump back to beginning of loop if distanceToGroundTooShort is true
             codeMatcher = codeMatcher.InsertAndAdvance(new CodeInstruction(OpCodes.Brtrue, label));
@@ -144,6 +171,33 @@ namespace BugFixes
             Label label = generator.DefineLabel();
             codeMatcher.SetInstructionAndAdvance(codeMatcher.InstructionAt(0).WithLabels(label));
 
+            // Goto FindPos call
+            codeMatcher = codeMatcher.MatchForward(true,
+                new CodeMatch(OpCodes.Ldarg_0),
+                new CodeMatch(OpCodes.Ldarg_3),
+                new CodeMatch(OpCodes.Call));
+
+            // Load the GameObject original (local variable at index 2) into top of stack
+            codeMatcher = codeMatcher.InsertAndAdvance(new CodeInstruction(OpCodes.Ldloc_2));
+
+            // Emit call to delagate, consuming GameObject original
+            // (Patch to get a sphere radius matching the object's size)
+            codeMatcher = codeMatcher.InsertAndAdvance(Transpilers.EmitDelegate<Func<GameObject, float>>(
+                (gameObject) => {
+
+                    // Get the max extent in x,z for sphere radius
+                    return Math.Max(gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.extents.x, gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.extents.z);
+                }));
+
+            // Emit call to delagate, consuming current GenerateCamp instance, ConsistentRandom rand (argument at index 3) and float radius (pushed into stact by previous delegate)
+            // (Patch to get a RaycastHit with the given sphereRadius)
+            codeMatcher = codeMatcher.SetInstructionAndAdvance(Transpilers.EmitDelegate<Func<GenerateCamp, ConsistentRandom, float, RaycastHit>>(
+                (instance, rand, sphereRadius) => {
+
+                    // Call new GenerateCamp.FindPos() method with new argument radius
+                    return instance.FindPos(rand, sphereRadius);
+                }));
+
             // Match the instruction loading gameObject on stack for GetComponent call
             codeMatcher = codeMatcher.MatchForward(true, new CodeMatch(OpCodes.Ldloc_S));
 
@@ -152,6 +206,7 @@ namespace BugFixes
             codeMatcher = codeMatcher.InsertAndAdvance(new CodeInstruction(OpCodes.Ldloc_S, 4));
 
             // Emit new call to delegate, consuming current GenerateCamp instance and GameObject obj
+            // (Patch to retry house generation if the resulting object is too close to the ground)
             codeMatcher = codeMatcher.InsertAndAdvance(Transpilers.EmitDelegate<Func<GenerateCamp, GameObject, bool>>(
                 (instance, gameObject) => {
 
@@ -191,7 +246,7 @@ namespace BugFixes
                     }
 
                     return distanceToGroundTooShort;
-            }));
+                }));
 
             // Jump back to beginning of loop if distanceToGroundTooShort is true
             codeMatcher = codeMatcher.InsertAndAdvance(new CodeInstruction(OpCodes.Brtrue, label));
@@ -233,7 +288,7 @@ namespace BugFixes
                 (instance, gameObject, initialHit) => {
 
                     bool distanceToGroundTooShort = false;
-
+                    
                     // If gameObject is a tent
                     if (gameObject.name.Contains("House"))
                     {
@@ -269,12 +324,54 @@ namespace BugFixes
                     }
 
                     return distanceToGroundTooShort;
-            }));
+                }));
 
             // Jump back to beginning of loop if distanceToGroundTooShort is true
             codeMatcher = codeMatcher.InsertAndAdvance(new CodeInstruction(OpCodes.Brtrue, label));
 
             return codeMatcher.InstructionEnumeration();
+        }
+    }
+}
+
+// Modify the UnityEngine namespace
+namespace UnityEngine
+{
+    // Add extension class to extend the GenerateCamp class with another method
+    public static class GenerateCamp_Method_Extensions
+    {
+        // Create another FindPos method for Generate camp which will use a custom radius
+        public static RaycastHit FindPos(this GenerateCamp camp, ConsistentRandom rand, float radius)
+        {
+            RaycastHit result = default(RaycastHit);
+
+            Vector3 a = camp.transform.position + Vector3.up * 200f;
+
+            // Get this.RandomSpherePos(rand) * this.campRadius by reflection
+            Vector3 randomSpherePos = (Vector3)AccessTools.Method(typeof(GenerateCamp), "RandomSpherePos", new Type[] { typeof(ConsistentRandom) }).Invoke(camp, new object[] { rand });
+            float campRadius = (float)AccessTools.Field(typeof(GenerateCamp), "campRadius").GetValue(camp);
+            Vector3 b = randomSpherePos * campRadius;
+
+            if (Physics.SphereCast(a + b, radius, Vector3.down, out result, 400f, camp.whatIsGround))
+            {
+                if (result.collider.CompareTag("Camp"))
+                {
+                    result = default(RaycastHit);
+                    Plugin.Log.LogInfo($"Hit Camp at = {a + b}");
+                }
+                // Add new condition to also look for camp houses (somehow houses spawned by GenerateCamp don't have the Camp tag)
+                else if (result.collider.name.Contains("House"))
+                {
+                    result = default(RaycastHit);
+                    Plugin.Log.LogInfo($"Hit House at = {a + b}");
+                }
+                if (WorldUtility.WorldHeightToBiome(result.point.y) == TextureData.TerrainType.Water)
+                {
+                    result = default(RaycastHit);
+                }
+            }
+
+            return result;
         }
     }
 }
