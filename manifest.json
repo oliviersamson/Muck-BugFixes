@@ -1,7 +1,7 @@
 {
-    "name":"BugFixes",
-    "version_number":"1.1.0",
-    "website_url": "https://github.com/oliviersamson/Muck-BugFixes",
-    "description":"Mod that aims to add various bug fixes to the game.",
-    "dependencies":["BepInEx-BepInExPack_Muck-5.4.1101"]
+  "name": "BugFixes",
+  "version_number": "1.1.1",
+  "website_url": "https://github.com/oliviersamson/Muck-BugFixes",
+  "description": "Mod that aims to add various bug fixes to the game.",
+  "dependencies": [ "BepInEx-BepInExPack_Muck-5.4.1101" ]
 }
