@@ -96,6 +96,31 @@ namespace BugFixes
                     return instance.FindPos(rand, sphereRadius);
                 }));
 
+            // Match the instruction jumping if raycastHit.collider != null
+            // Somehow it's OpCodes.Brtrue instead of OpCodes.Brtrue_S... OpCodes.Brtrue_S makes the mod crash
+            codeMatcher = codeMatcher.MatchForward(true, new CodeMatch(OpCodes.Brtrue));
+
+            // Load the current GenerateCamp instance into top of stack
+            codeMatcher = codeMatcher.InsertAndAdvance(new CodeInstruction(OpCodes.Ldarg_0));
+
+            // Emit new call to delegate, consuming bool resulting from raycastHit.collider != null and current GenerateCamp instance
+            // (Patch to retry house generation if the resulting object the raycast has hit something)
+            codeMatcher = codeMatcher.InsertAndAdvance(Transpilers.EmitDelegate<Func<bool, GenerateCamp, bool>>(
+                (result, instance) =>
+                {
+                    if (result)
+                    {
+                        Plugin.Log.LogInfo($"Retrying to spawn camp structure for camp at: {instance.gameObject.transform.position}");
+
+                        // Increase camp radius in order to not have any infinite loops due to always failing to spawn object
+                        AccessTools.Field(typeof(GenerateCamp), "campRadius").SetValue(instance, (float)AccessTools.Field(typeof(GenerateCamp), "campRadius").GetValue(instance) + 1.0f);
+                    }
+                    return result;
+                }));
+
+            // Change jump to go back at begining of loop without incrementing the loop counter
+            codeMatcher = codeMatcher.SetOperandAndAdvance(label);
+
             // Match the instruction loading gameObject on stack for GetComponent call
             codeMatcher = codeMatcher.MatchForward(true, 
                 new CodeMatch(OpCodes.Ldc_R4),
@@ -198,6 +223,30 @@ namespace BugFixes
                     return instance.FindPos(rand, sphereRadius);
                 }));
 
+            // Match the instruction jumping if raycastHit.collider != null
+            codeMatcher = codeMatcher.MatchForward(true, new CodeMatch(OpCodes.Brtrue));
+
+            // Load the current GenerateCamp instance into top of stack
+            codeMatcher = codeMatcher.InsertAndAdvance(new CodeInstruction(OpCodes.Ldarg_0));
+
+            // Emit new call to delegate, consuming bool resulting from raycastHit.collider != null and current GenerateCamp instance
+            // (Patch to retry house generation if the resulting object the raycast has hit something)
+            codeMatcher = codeMatcher.InsertAndAdvance(Transpilers.EmitDelegate<Func<bool, GenerateCamp, bool>>(
+                (result, instance) =>
+                {
+                    if (result)
+                    {
+                        Plugin.Log.LogInfo($"Retrying to spawn house for camp at: {instance.gameObject.transform.position}");
+
+                        // Increase camp radius in order to not have any infinite loops due to always failing to spawn object
+                        AccessTools.Field(typeof(GenerateCamp), "campRadius").SetValue(instance, (float)AccessTools.Field(typeof(GenerateCamp), "campRadius").GetValue(instance) + 1.0f);
+                    }
+                    return result;
+                }));
+
+            // Change jump to go back at begining of loop without incrementing the loop counter
+            codeMatcher = codeMatcher.SetOperandAndAdvance(label);
+
             // Match the instruction loading gameObject on stack for GetComponent call
             codeMatcher = codeMatcher.MatchForward(true, new CodeMatch(OpCodes.Ldloc_S));
 
@@ -237,7 +286,7 @@ namespace BugFixes
                                 // Destroy game object
                                 GameObject.Destroy(gameObject);
 
-                                //Increase camp radius in order to not have any infinite loops due to always failing to spawn object
+                                // Increase camp radius in order to not have any infinite loops due to always failing to spawn object
                                 AccessTools.Field(typeof(GenerateCamp), "campRadius").SetValue(instance, (float)AccessTools.Field(typeof(GenerateCamp), "campRadius").GetValue(instance) + 1.0f);
 
                                 distanceToGroundTooShort = true;
@@ -356,14 +405,14 @@ namespace UnityEngine
             {
                 if (result.collider.CompareTag("Camp"))
                 {
+                    Plugin.Log.LogInfo($"Hit camp structure at = {result.point}");
                     result = default(RaycastHit);
-                    Plugin.Log.LogInfo($"Hit Camp at = {a + b}");
                 }
                 // Add new condition to also look for camp houses (somehow houses spawned by GenerateCamp don't have the Camp tag)
                 else if (result.collider.name.Contains("House"))
                 {
+                    Plugin.Log.LogInfo($"Hit House at = {result.point}");
                     result = default(RaycastHit);
-                    Plugin.Log.LogInfo($"Hit House at = {a + b}");
                 }
                 if (WorldUtility.WorldHeightToBiome(result.point.y) == TextureData.TerrainType.Water)
                 {
