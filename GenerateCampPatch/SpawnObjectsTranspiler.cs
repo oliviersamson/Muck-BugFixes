@@ -96,17 +96,17 @@ namespace BugFixes.GenerateCampPatch
                         Plugin.Log.LogDebug($"Checking clearance for {gameObject.name} at {gameObject.transform.position}");
 
                         // Set pos a bit on top of object
-                        Vector3 castPos = gameObject.transform.position + (gameObject.transform.up * 7.0f);
+                        Vector3 castPos = gameObject.transform.position + (gameObject.transform.up * 107.0f);
 
                         // Create box parameters with same size and oriantation as object
                         Vector3 halfExtents = gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.extents;
                         Quaternion orientation = Quaternion.LookRotation(gameObject.transform.up);
 
                         // Cast Box ray 
-                        if (Physics.BoxCast(castPos, halfExtents, -(gameObject.transform.up), out RaycastHit hit, orientation, 20f, instance.whatIsGround))
+                        if (Physics.BoxCast(castPos, halfExtents, -(gameObject.transform.up), out RaycastHit hit, orientation, 200f, instance.whatIsGround))
                         {
                             // If tent distance to ground is too short
-                            if (hit.distance < 2.0f)
+                            if (hit.distance < 102.0f)
                             {
                                 Plugin.Log.LogDebug($"Tent distance to ground is too short!");
 
@@ -215,17 +215,17 @@ namespace BugFixes.GenerateCampPatch
                     {
                         Plugin.Log.LogDebug($"Checking clearance for {gameObject.name} at {gameObject.transform.position}");
                         // Set pos a bit on top of object
-                        Vector3 castPos = gameObject.transform.position + (gameObject.transform.forward * 8.7f);
+                        Vector3 castPos = gameObject.transform.position + (gameObject.transform.forward * 108.7f);
 
                         // Create box parameters with same size and oriantation as object
                         Vector3 halfExtents = gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.extents;
                         Quaternion orientation = Quaternion.LookRotation(gameObject.transform.forward);
 
                         // Cast Box ray 
-                        if (Physics.BoxCast(castPos, halfExtents, -(gameObject.transform.forward), out RaycastHit hit, orientation, 20f, instance.whatIsGround))
+                        if (Physics.BoxCast(castPos, halfExtents, -(gameObject.transform.forward), out RaycastHit hit, orientation, 200f, instance.whatIsGround))
                         {
                             // If tent distance to ground is too short
-                            if (hit.distance < 2.0f)
+                            if (hit.distance < 102.0f)
                             {
                                 Plugin.Log.LogDebug($"House distance to ground is too short!");
 

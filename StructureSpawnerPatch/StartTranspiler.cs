@@ -53,17 +53,18 @@ namespace BugFixes.StructureSpawnerPatch
                         gameObjectTransform.rotation = Quaternion.LookRotation(initialHit.normal);
 
                         // Set pos a bit on top of object
-                        Vector3 castPos = gameObject.transform.position + (gameObjectTransform.forward * 8.7f);
+                        Vector3 castPos = gameObject.transform.position + (gameObjectTransform.forward * 108.7f);
 
                         // Create box parameters with same size and oriantation as object
                         Vector3 halfExtents = gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.extents;
-                        Quaternion orientation = Quaternion.LookRotation(gameObjectTransform.forward);
 
                         // Cast Box ray 
-                        if (Physics.BoxCast(castPos, halfExtents, -(gameObjectTransform.forward), out RaycastHit hit, orientation, 20f, instance.whatIsTerrain))
+                        if (Physics.BoxCast(castPos, halfExtents, -(gameObjectTransform.forward), out RaycastHit hit, gameObjectTransform.rotation, 200f, instance.whatIsTerrain))
                         {
+                            Plugin.Log.LogDebug($"Clearance is {hit.distance}");
+
                             // If tent distance to ground is too short
-                            if (hit.distance < 2.0f)
+                            if (hit.distance < 102.0f)
                             {
                                 Plugin.Log.LogDebug($"House distance to ground is too short! Attempting to spawn again...");
 
@@ -72,7 +73,7 @@ namespace BugFixes.StructureSpawnerPatch
 
                                 distanceToGroundTooShort = true;
                             }
-                        }
+                        }   
                     }
 
                     return distanceToGroundTooShort;
