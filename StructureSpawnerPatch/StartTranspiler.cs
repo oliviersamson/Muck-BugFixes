@@ -46,6 +46,8 @@ namespace BugFixes.StructureSpawnerPatch
                     // If gameObject is a tent
                     if (gameObject.name.Contains("House"))
                     {
+                        Plugin.Log.LogDebug($"Checking clearance for {gameObject.name} at {initialHit.point}");
+
                         // Get rotated transform since it is not yet calculated for this GameObject
                         Transform gameObjectTransform = gameObject.transform;
                         gameObjectTransform.rotation = Quaternion.LookRotation(initialHit.normal);
@@ -63,9 +65,7 @@ namespace BugFixes.StructureSpawnerPatch
                             // If tent distance to ground is too short
                             if (hit.distance < 2.0f)
                             {
-                                //Plugin.Log.LogInfo($"House distance to ground is too short!");
-                                //Plugin.Log.LogInfo($"Raycast hit at {hit.point}");
-                                //Plugin.Log.LogInfo($"Distance = {hit.distance}");
+                                Plugin.Log.LogDebug($"House distance to ground is too short! Attempting to spawn again...");
 
                                 // Destroy game object
                                 GameObject.Destroy(gameObject);
