@@ -58,6 +58,9 @@ namespace BugFixes.StructureSpawnerPatch
                         // Create box parameters with same size and oriantation as object
                         Vector3 halfExtents = gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.extents;
 
+                        // Deactivate this game object so that the BoxCast doesn't hit it
+                        gameObject.SetActive(false);
+
                         // Cast Box ray 
                         if (Physics.BoxCast(castPos, halfExtents, -(gameObjectTransform.forward), out RaycastHit hit, gameObjectTransform.rotation, 200f, instance.whatIsTerrain))
                         {
@@ -71,7 +74,10 @@ namespace BugFixes.StructureSpawnerPatch
 
                                 distanceToGroundTooShort = true;
                             }
-                        }   
+                        }
+
+                        // Reactivate game object
+                        gameObject.SetActive(true);
                     }
 
                     return distanceToGroundTooShort;

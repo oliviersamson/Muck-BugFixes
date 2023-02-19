@@ -102,6 +102,9 @@ namespace BugFixes.GenerateCampPatch
                         Vector3 halfExtents = gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.extents;
                         Quaternion orientation = Quaternion.LookRotation(gameObject.transform.up);
 
+                        // Deactivate this game object so that the BoxCast doesn't hit it
+                        gameObject.SetActive(false);
+
                         // Cast Box ray 
                         if (Physics.BoxCast(castPos, halfExtents, -(gameObject.transform.up), out RaycastHit hit, orientation, 200f, instance.whatIsGround))
                         {
@@ -119,6 +122,9 @@ namespace BugFixes.GenerateCampPatch
                                 distanceToGroundTooShort = true;
                             }
                         }
+
+                        // Reactivate game object
+                        gameObject.SetActive(true);
                     }
 
                     return distanceToGroundTooShort;
@@ -203,7 +209,7 @@ namespace BugFixes.GenerateCampPatch
             codeMatcher = codeMatcher.InsertAndAdvance(new CodeInstruction(OpCodes.Ldarg_0));
             codeMatcher = codeMatcher.InsertAndAdvance(new CodeInstruction(OpCodes.Ldloc_S, 4));
 
-            // Emit new call to delegate, consuming current GenerateCamp instance and GameObject obj
+            // Emit new call to delegate, consuming current GenerateCamp instance and GameObject gameObject
             // (Patch to retry house generation if the resulting object is too close to the ground)
             codeMatcher = codeMatcher.InsertAndAdvance(Transpilers.EmitDelegate<Func<GenerateCamp, GameObject, bool>>(
                 (instance, gameObject) => {
@@ -220,6 +226,9 @@ namespace BugFixes.GenerateCampPatch
                         // Create box parameters with same size and oriantation as object
                         Vector3 halfExtents = gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.extents;
                         Quaternion orientation = Quaternion.LookRotation(gameObject.transform.forward);
+
+                        // Deactivate this game object so that the BoxCast doesn't hit it
+                        gameObject.SetActive(false);
 
                         // Cast Box ray 
                         if (Physics.BoxCast(castPos, halfExtents, -(gameObject.transform.forward), out RaycastHit hit, orientation, 200f, instance.whatIsGround))
@@ -238,6 +247,9 @@ namespace BugFixes.GenerateCampPatch
                                 distanceToGroundTooShort = true;
                             }
                         }
+
+                        // Reactivate game object
+                        gameObject.SetActive(true);
                     }
 
                     return distanceToGroundTooShort;
