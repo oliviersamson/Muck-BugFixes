@@ -24,3 +24,5 @@ Note that all players in a lobby need to have this mod installed to play togethe
 - Fix bug where non-camp structures can spawn very close or in another structure.
 - Fix bug where the full amount of non-camp structures calculated won't be spawned in the world
 - Fix bug where some trees pop out of render before other trees further from them
+- Fix bug where structures can spawn with a too steep incline, making it impossible for the player to reach (especially important for tents and houses)
+- Fix bug where mobs can spawn on top of structures and never being able to get off...
