@@ -17,50 +17,29 @@ namespace UnityEngine
             Vector3 randomSpherePos = (Vector3)AccessTools.Method(typeof(GenerateCamp), "RandomSpherePos", new Type[] { typeof(ConsistentRandom) }).Invoke(camp, new object[] { rand });
             float campRadius = (float)AccessTools.Field(typeof(GenerateCamp), "campRadius").GetValue(camp);
             Vector3 b = randomSpherePos * campRadius;
-
-
-            // TODO: Might be a good idea to use Physics.CheckBox instead!
-            if (Physics.SphereCast(a + b, radius, Vector3.down, out RaycastHit result, 400f))
+          
+            if (Physics.SphereCast(a + b, 1f, Vector3.down, out RaycastHit result, 400f, camp.whatIsGround))
             {
-                Plugin.Log.LogDebug($"SphereCast hit {result.collider.name} ({result.collider.tag}) at {result.point}");
-                if (result.collider.CompareTag("Camp"))
+                if (result.collider.name.Contains("Clone"))
                 {
-                    Plugin.Log.LogDebug($"Hit camp!");
-                    result = default;
-                }
-                // Add new condition to also look for camp houses (somehow houses spawned by GenerateCamp don't have the Camp tag)
-                else if (result.collider.name.Contains("House"))
-                {
-                    Plugin.Log.LogDebug($"Hit house!");
-                    result = default;
-                }
-                // Add new condition to also look for boat
-                else if (result.collider.name.Contains("Boat") || result.collider.name.Contains("Planks"))
-                {
-                    Plugin.Log.LogDebug($"Hit boat!");
-                    result = default;
-                }
-                //Add new condition to also look for chests
-                else if (result.collider.name.Contains("Chest"))
-                {
-                    Plugin.Log.LogDebug($"Hit chest!");
-                    result = default;
-                }
-                //Add new condition to also look for caves
-                else if (result.collider.name.Contains("Cave"))
-                {
-                    Plugin.Log.LogDebug($"Hit cave!");
-                    result = default;
+                    Plugin.Log.LogDebug($"Object is colliding with {result.collider.name} at {result.point}!");
+                    result = default(RaycastHit);
                 }
                 else if (WorldUtility.WorldHeightToBiome(result.point.y) == TextureData.TerrainType.Water)
                 {
-                    Plugin.Log.LogDebug($"Hit water!");
+                    Plugin.Log.LogDebug($"Hit water at {result.point}!");
                     result = default;
+                }
+                // TODO: Might be a good idea to use Physics.CheckBox instead!
+                else if (Physics.CheckSphere(result.point, radius, ~camp.whatIsGround.value))
+                {
+                    Plugin.Log.LogDebug($"Object is colliding with something at {result.point}!");
+                    result = default(RaycastHit);
                 }
             }
             else
             {
-                Plugin.Log.LogDebug($"Nothing was hit!");
+                Plugin.Log.LogDebug($"No meshes were hit (not even the ground or water)!");
             }
 
             return result;
