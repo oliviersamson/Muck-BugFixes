@@ -61,8 +61,6 @@ namespace BugFixes.StructureSpawnerPatch
                         // Cast Box ray 
                         if (Physics.BoxCast(castPos, halfExtents, -(gameObjectTransform.forward), out RaycastHit hit, gameObjectTransform.rotation, 200f, instance.whatIsTerrain))
                         {
-                            Plugin.Log.LogDebug($"Clearance is {hit.distance}");
-
                             // If tent distance to ground is too short
                             if (hit.distance < 102.0f)
                             {

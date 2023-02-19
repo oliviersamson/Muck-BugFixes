@@ -8,7 +8,7 @@ namespace BugFixes
     {
         public const string PLUGIN_GUID = "muck.mrboxxy.bugfixes";
         public const string PLUGIN_NAME = "BugFixes";
-        public const string PLUGIN_VERSION = "1.1.2";
+        public const string PLUGIN_VERSION = "1.1.3";
     }
 
     [BepInPlugin(Globals.PLUGIN_GUID, Globals.PLUGIN_NAME, Globals.PLUGIN_VERSION)]
