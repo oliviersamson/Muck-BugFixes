@@ -6,6 +6,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using static UnityEngine.UIElements.StyleVariableResolver;
 
 namespace BugFixes.StructureSpawnerPatch
 {
@@ -41,22 +42,42 @@ namespace BugFixes.StructureSpawnerPatch
             codeMatcher = codeMatcher.InsertAndAdvance(Transpilers.EmitDelegate<Func<StructureSpawner, GameObject, RaycastHit, bool>>(
                 (instance, gameObject, initialHit) => {
 
+                    Plugin.Log.LogDebug($"Trying to find spawn position for {instance.name}");
+
+                    // Get rotated transform since it is not yet calculated for this GameObject
+                    Transform gameObjectTransform = gameObject.transform;
+                    gameObjectTransform.rotation = Quaternion.LookRotation(initialHit.normal);
+
+                    // Set pos a bit on top of object
+                    Vector3 castPos = gameObject.transform.position + (gameObjectTransform.forward * 108.7f);
+
+                    // Create box parameters with same size and oriantation as object
+                    Vector3 halfExtents = gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.extents;
+
+                    // Deactivate this game object so that CheckBox doesn't hit it
+                    gameObject.SetActive(false);
+
+                    // Verify around spawning point for object(s) that might be in the way
+                    if (Physics.CheckBox(initialHit.point, halfExtents, gameObjectTransform.rotation, ~instance.whatIsTerrain.value))
+                    {
+                        Plugin.Log.LogDebug($"Object is colliding with something {initialHit.point}! Attempting to spawn again...");
+
+                        // Destroy game object
+                        GameObject.Destroy(gameObject);
+
+                        // return immediately
+                        return true;
+                    }
+
+                    // Reactivate game object
+                    gameObject.SetActive(true);
+
                     bool distanceToGroundTooShort = false;
 
                     // If gameObject is a tent
                     if (gameObject.name.Contains("House"))
                     {
-                        Plugin.Log.LogDebug($"Checking clearance for {gameObject.name} at {initialHit.point}");
-
-                        // Get rotated transform since it is not yet calculated for this GameObject
-                        Transform gameObjectTransform = gameObject.transform;
-                        gameObjectTransform.rotation = Quaternion.LookRotation(initialHit.normal);
-
-                        // Set pos a bit on top of object
-                        Vector3 castPos = gameObject.transform.position + (gameObjectTransform.forward * 108.7f);
-
-                        // Create box parameters with same size and oriantation as object
-                        Vector3 halfExtents = gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.extents;
+                        Plugin.Log.LogDebug($"Checking clearance for {gameObject.name} at {initialHit.point}");                      
 
                         // Deactivate this game object so that the BoxCast doesn't hit it
                         gameObject.SetActive(false);

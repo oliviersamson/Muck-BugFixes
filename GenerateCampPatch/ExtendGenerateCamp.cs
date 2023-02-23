@@ -23,7 +23,7 @@ namespace UnityEngine
                 if (result.collider.name.Contains("Clone"))
                 {
                     Plugin.Log.LogDebug($"Object is colliding with {result.collider.name} at {result.point}!");
-                    result = default(RaycastHit);
+                    result = default;
                 }
                 else if (WorldUtility.WorldHeightToBiome(result.point.y) == TextureData.TerrainType.Water)
                 {
@@ -34,7 +34,7 @@ namespace UnityEngine
                 else if (Physics.CheckSphere(result.point, radius, ~camp.whatIsGround.value))
                 {
                     Plugin.Log.LogDebug($"Object is colliding with something at {result.point}!");
-                    result = default(RaycastHit);
+                    result = default;
                 }
             }
             else
