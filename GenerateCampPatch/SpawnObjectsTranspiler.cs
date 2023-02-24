@@ -33,7 +33,6 @@ namespace BugFixes.GenerateCampPatch
             codeMatcher = codeMatcher.InsertAndAdvance(Transpilers.EmitDelegate<Func<GameObject, float>>(
                 (gameObject) => {
 
-                    Plugin.Log.LogDebug($"Trying to find spawn position for {gameObject.name}");
                     // Get the max extent in x,z for sphere radius
                     return Math.Max(gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.extents.x, gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.extents.z);
                 }));
@@ -61,7 +60,7 @@ namespace BugFixes.GenerateCampPatch
                 {
                     if (result)
                     {
-                        Plugin.Log.LogDebug($"Incorrect position found for this object! Trying again...");
+                        Plugin.Log.LogDebug($"Incorrect position found for an object! Trying again...");
                         // Increase camp radius in order to not have any infinite loops due to always failing to spawn object
                         AccessTools.Field(typeof(GenerateCamp), "campRadius").SetValue(instance, (float)AccessTools.Field(typeof(GenerateCamp), "campRadius").GetValue(instance) + 1.0f);
                     }
@@ -93,8 +92,6 @@ namespace BugFixes.GenerateCampPatch
                     // If gameObject is a tent
                     if (gameObject.name.Contains(instance.hut.name))
                     {
-                        Plugin.Log.LogDebug($"Checking clearance for {gameObject.name} at {gameObject.transform.position}");
-
                         // Set pos a bit on top of object
                         Vector3 castPos = gameObject.transform.position + (gameObject.transform.up * 107.0f);
 
@@ -111,7 +108,7 @@ namespace BugFixes.GenerateCampPatch
                             // If tent distance to ground is too short
                             if (hit.distance < 102.0f)
                             {
-                                Plugin.Log.LogDebug($"Tent distance to ground is too short!");
+                                Plugin.Log.LogDebug($"{gameObject.name} distance to ground is too short! Trying again...");
 
                                 // Destroy game object
                                 GameObject.Destroy(gameObject);
@@ -165,7 +162,6 @@ namespace BugFixes.GenerateCampPatch
             codeMatcher = codeMatcher.InsertAndAdvance(Transpilers.EmitDelegate<Func<GameObject, float>>(
                 (gameObject) => {
 
-                    Plugin.Log.LogDebug($"Trying to find spawn position for {gameObject.name}");
                     // Get the max extent in x,z for sphere radius
                     return Math.Max(gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.extents.x, gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.extents.z);
                 }));
@@ -219,7 +215,6 @@ namespace BugFixes.GenerateCampPatch
                     // If gameObject is a tent
                     if (gameObject.name.Contains("House"))
                     {
-                        Plugin.Log.LogDebug($"Checking clearance for {gameObject.name} at {gameObject.transform.position}");
                         // Set pos a bit on top of object
                         Vector3 castPos = gameObject.transform.position + (gameObject.transform.forward * 108.7f);
 
@@ -236,7 +231,7 @@ namespace BugFixes.GenerateCampPatch
                             // If tent distance to ground is too short
                             if (hit.distance < 102.0f)
                             {
-                                Plugin.Log.LogDebug($"House distance to ground is too short!");
+                                Plugin.Log.LogDebug($"{gameObject.name} distance to ground is too short! Trying again...");
 
                                 // Destroy game object
                                 GameObject.Destroy(gameObject);

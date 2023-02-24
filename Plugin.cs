@@ -38,6 +38,10 @@ namespace BugFixes
 
             harmony.PatchAll(typeof(StructureSpawnerPatch.Start));
             Log.LogInfo("Patched StructureSpawner.Start()");
+
+            harmony.PatchAll(typeof(ResourceGeneratorPatch.PrefixesAndPostfixes));
+            Log.LogInfo("Patched ResourceGenerator.SpawnTree()");
+            Log.LogInfo("Patched ResourceGenerator.GenerateForest()");
         }
     }
 }
