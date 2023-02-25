@@ -13,7 +13,7 @@ namespace BugFixes.ResourceGeneratorPatch
     {
         [HarmonyPatch(typeof(ResourceGenerator), "GenerateForest")]
         [HarmonyPrefix]
-        static bool GenerateForestPreFix(ref ResourceGenerator __instance, int ___density, ConsistentRandom ___randomGen, ref int ___totalResources)
+        static bool GenerateForestPrefix(ref ResourceGenerator __instance, int ___density, ConsistentRandom ___randomGen, ref int ___totalResources)
         {
             int nextGenOffset;
             if (__instance.forceSeedOffset != -1)

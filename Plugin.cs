@@ -40,8 +40,11 @@ namespace BugFixes
             Log.LogInfo("Patched StructureSpawner.Start()");
 
             harmony.PatchAll(typeof(ResourceGeneratorPatch.PrefixesAndPostfixes));
-            Log.LogInfo("Patched ResourceGenerator.SpawnTree()");
+            Log.LogInfo("Patched ResourceGenerator.SpawnTree(Vector3 pos)");
             Log.LogInfo("Patched ResourceGenerator.GenerateForest()");
+
+            harmony.PatchAll(typeof(ContinousHitbox.PrefixesAndPostfixes));
+            Log.LogInfo("Patched ContinousHitbox.ResetHitbox()");
         }
     }
 }
