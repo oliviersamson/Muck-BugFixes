@@ -6,13 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace BugFixes.ContinousHitbox
+namespace BugFixes.ContinousHitboxPatch
 {
     class PrefixesAndPostfixes
     {
-        [HarmonyPatch(typeof(global::ContinousHitbox), "ResetHitbox")]
+        [HarmonyPatch(typeof(ContinousHitbox), "ResetHitbox")]
         [HarmonyPrefix]
-        static bool ResetHitbox(global::ContinousHitbox __instance)
+        static bool ResetHitbox(ContinousHitbox __instance)
         {
             if (__instance.transform.root.gameObject.TryGetComponent<DestroyObject>(out DestroyObject destroyObject))
             {

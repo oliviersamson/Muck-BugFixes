@@ -43,8 +43,14 @@ namespace BugFixes
             Log.LogInfo("Patched ResourceGenerator.SpawnTree(Vector3 pos)");
             Log.LogInfo("Patched ResourceGenerator.GenerateForest()");
 
-            harmony.PatchAll(typeof(ContinousHitbox.PrefixesAndPostfixes));
+            harmony.PatchAll(typeof(ContinousHitboxPatch.PrefixesAndPostfixes));
             Log.LogInfo("Patched ContinousHitbox.ResetHitbox()");
+
+            harmony.PatchAll(typeof(SpawnZoneGeneratorPatch.Start));
+            Log.LogInfo("Patched SpawnZoneGenerator.Start()");
+
+            harmony.PatchAll(typeof(SpawnZonePatch.FindRandomPosTranspiler));
+            Log.LogInfo("Patched SpawnZone.FindRandomPos()");
         }
     }
 }
