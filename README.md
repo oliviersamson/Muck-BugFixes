@@ -15,13 +15,13 @@ Note that all players in a lobby need to have this mod installed to play togethe
 - Fixed a bug where resources can spawn on/inside structures.
 - Fixed a bug where non-camp structures can spawn very close or in another structure.
 - Fixed a bug where Chief's spinning attack continues after his death, still causing damage to players in range.
+- Fixed a bug where mobs can spawn on top of structures
 
 ## TODO: Future fixes
 
-- Fix bug where diagonal movement boosts jumping (add a way to deactivate this fix for players who want to take advantage of this movement mechanic).
 - Fix bug where one shotting Woodmen doesn't' trigger their hostility towards you.
 - Fix bug where wheat renders late.
-- Fix bug where shallow water slows down players.
 - Fix bug where some trees pop out of render before other trees further from them
 - Fix bug where structures can spawn with a too steep incline, making it impossible for the player to reach (especially important for tents and houses)
-- Fix bug where mobs can spawn on top of structures and never being able to get off...
+- Fix bug where items visually sometimes don't disappear of hotbar after use
+- Fix bug where sound volume falloff with distance
