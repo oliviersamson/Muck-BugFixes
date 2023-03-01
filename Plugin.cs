@@ -51,6 +51,9 @@ namespace BugFixes
 
             harmony.PatchAll(typeof(SpawnZonePatch.FindRandomPosTranspiler));
             Log.LogInfo("Patched SpawnZone.FindRandomPos()");
+
+            harmony.PatchAll(typeof(HitableMobPatch.PrefixesAndPostfixes));
+            Log.LogInfo("Patched HitableMob.OnKill()");
         }
     }
 }
