@@ -54,6 +54,9 @@ namespace BugFixes
 
             harmony.PatchAll(typeof(HitableMobPatch.PrefixesAndPostfixes));
             Log.LogInfo("Patched HitableMob.OnKill()");
+
+            harmony.PatchAll(typeof(InventoryUIPatch.PrefixesAndPostfixes));
+            Log.LogInfo("Patched InventoryUI.Repair()");
         }
     }
 }
