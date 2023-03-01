@@ -16,12 +16,12 @@ Note that all players in a lobby need to have this mod installed to play togethe
 - Fixed a bug where non-camp structures can spawn very close or in another structure.
 - Fixed a bug where Chief's spinning attack continues after his death, still causing damage to players in range.
 - Fixed a bug where mobs can spawn on top of structures
+- Fixed a bug where one shotting Woodmen wouldn't trigger their hostility towards you.
+- Fixed a bug where items would not visually update in hotbar after boat repair
 
 ## TODO: Future fixes
 
-- Fix bug where one shotting Woodmen doesn't' trigger their hostility towards you.
 - Fix bug where wheat renders late.
 - Fix bug where some trees pop out of render before other trees further from them
 - Fix bug where structures can spawn with a too steep incline, making it impossible for the player to reach (especially important for tents and houses)
-- Fix bug where items visually sometimes don't disappear of hotbar after use
-- Fix bug where sound volume falloff with distance
+- Fix bug where sound volume falloff with distance is inconsistent between different sounds (some can be heard across the map)
