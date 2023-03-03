@@ -27,8 +27,8 @@ namespace BugFixes
 
             harmony = new Harmony(Globals.PLUGIN_NAME);
 
-            harmony.PatchAll(typeof(LootDropPatch.PrefixesAndPostfixes));
-            Log.LogInfo("Patched LootDrop.GetLoot(ConsistentRandom)");
+            harmony.PatchAll(typeof(GameManagerPatch.PrefixesAndPostfixes));
+            Log.LogInfo("Patched GameManager.Start()");
 
             harmony.PatchAll(typeof(GenerateCampPatch.SpawnObjects_GameObject));
             Log.LogInfo("Patched GenerateCamp.SpawnObjects(GameObject, int, ConsistentRandom)");
