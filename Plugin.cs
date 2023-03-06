@@ -15,7 +15,6 @@ namespace BugFixes
     public class Plugin : BaseUnityPlugin
     {
         public static ManualLogSource Log;
-        public static bool randomSeedSet;
 
         public Harmony harmony;
 
@@ -23,7 +22,6 @@ namespace BugFixes
         {
             // Plugin startup logic
             Log = base.Logger;
-            randomSeedSet = false;
 
             harmony = new Harmony(Globals.PLUGIN_NAME);
 

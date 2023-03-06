@@ -101,6 +101,12 @@ namespace BugFixes.ResourceGeneratorPatch
             }
             ___totalResources = num3;
             __instance.drawChunks.InitChunks(__instance.resources);
+
+            for (int i = 0; i < __instance.drawChunks.chunks.Count(); i++)
+            {
+                AccessTools.Method(typeof(DrawChunks), "DrawChunk", new Type[] { typeof(int), typeof(bool), typeof(int) }).Invoke(__instance.drawChunks, new object[] { i, true, 1 });
+            }
+
             __instance.drawChunks.totalTrees = ___totalResources;
 
             return false;
@@ -110,14 +116,11 @@ namespace BugFixes.ResourceGeneratorPatch
         [HarmonyPostfix]
         static void SpawnTreePostfix(ref GameObject __result, ResourceGenerator __instance, Vector3 pos)
         {
-            // Set pos a bit on top of object
-            Vector3 castPos = __result.transform.position + (__result.transform.forward * 108.7f);
-
             // Create box parameters with same size and oriantation as object
             Vector3 halfExtents = new();
 
             if (new List<string> { "Tree", "Birch", "Fir", "Oak" }.Any(__result.name.Contains))
-            {
+            {               
                 halfExtents = __instance.GetTreeExtents(__result.name.Replace("(Clone)", ""));
             }
             else if (__result.CompareTag("Count") && !new List<string> { "Pickup", "Flint" }.Any(__result.name.Contains))
