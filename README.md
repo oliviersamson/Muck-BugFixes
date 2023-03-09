@@ -30,3 +30,6 @@ Note that all players in a lobby need to have this mod installed to play togethe
 - Fix bug where Chief's spinning attack hitbox allows to be in contact with him while taking no damage
 - Fix bug where a player gets HP over his limit when entering combat with Bob
 - Fix bug where spectating a player when the gameover UI pops up will keep the camera movements enabled while browsing the menu.
+- Fix bug where taking the boat map from a chest with Shift+Click doesn't trigger the "boat map found event" (might be the same with the gems map)
+- Fix bug where changing control settings while in game doesn't focus the mouse controls back to the game
+- Fix bug where the prompt for changing a key bind isn't shown when changed while in a game
