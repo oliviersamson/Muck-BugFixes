@@ -19,6 +19,7 @@ Note that all players in a lobby need to have this mod installed to play togethe
 - Fixed a bug where one shotting Woodmen wouldn't trigger their hostility towards you.
 - Fixed a bug where items would not visually update in hotbar after boat repair
 - Fixed a bug where the usual UI background was not applied to the Game Settings UI in the Lobby menu UI
+- Fixed a bug where taking the boat or gem map in any other way than placing it with the mouse in your inventory wouldn't trigger its event
 
 ## TODO: Future fixes
 
@@ -30,7 +31,6 @@ Note that all players in a lobby need to have this mod installed to play togethe
 - Fix bug where Chief's spinning attack hitbox allows to be in contact with him while taking no damage
 - Fix bug where a player gets HP over his limit when entering combat with Bob
 - Fix bug where spectating a player when the gameover UI pops up will keep the camera movements enabled while browsing the menu.
-- Fix bug where taking the boat map from a chest with Shift+Click doesn't trigger the "boat map found event" (might be the same with the gems map)
 - Fix bug where changing control settings while in game doesn't focus the mouse controls back to the game
 - Fix bug where the prompt for changing a key bind isn't shown when changed while in a game
 - Fix bug where the back button on the settings menu while in pause gets you back into the game instantly with the mouse unfocused on the game
