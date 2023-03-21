@@ -1,9 +1,5 @@
 ﻿using HarmonyLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UnityEngine;
 
 namespace BugFixes.InventoryUIPatch
 {
@@ -14,6 +10,16 @@ namespace BugFixes.InventoryUIPatch
         static void RepairPostfix(InventoryUI __instance)
         {
             __instance.hotbar.UpdateHotbar();
+        }
+
+        [HarmonyPatch(typeof(InventoryUI), "AddItemToInventory")]
+        [HarmonyPostfix]
+        static void AddItemToInventoryPostfix(InventoryItem item)
+        {
+            if (Boat.Instance)
+            {
+                Boat.Instance.CheckForMapUpdate(item.id);
+            }
         }
     }
 }
