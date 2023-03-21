@@ -55,6 +55,9 @@ namespace BugFixes
 
             harmony.PatchAll(typeof(InventoryUIPatch.PrefixesAndPostfixes));
             Log.LogInfo("Patched InventoryUI.Repair()");
+
+            harmony.PatchAll(typeof(LobbyVisualsPatch.PrefixesAndPostfixes));
+            Log.LogInfo("Patched LobbyVisuals.Awake()");
         }
     }
 }
