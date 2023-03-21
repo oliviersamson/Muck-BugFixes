@@ -34,5 +34,5 @@ Note that all players in a lobby need to have this mod installed to play togethe
 - Fix bug where changing control settings while in game doesn't focus the mouse controls back to the game
 - Fix bug where the prompt for changing a key bind isn't shown when changed while in a game
 - Fix bug where the back button on the settings menu while in pause gets you back into the game instantly with the mouse unfocused on the game
-- Fix bug where workbench texture is not the same between the craftable workbench and the workben associated with the wood cutter
+- Fix bug where workbench texture is not the same between the craftable workbench and the workbench associated with the wood cutter
 - Fix bug where mob attack is delayed right after spawning

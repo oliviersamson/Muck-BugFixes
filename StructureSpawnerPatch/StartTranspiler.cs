@@ -66,6 +66,15 @@ namespace BugFixes.StructureSpawnerPatch
                     // Reactivate game object
                     gameObject.SetActive(true);
 
+                    if (initialHit.collider.name.Contains("Clone"))
+                    {
+                        Plugin.Log.LogDebug($"{gameObject.name} is colliding with something at {initialHit.point}! Trying again...");
+
+                        GameObject.Destroy(gameObject);
+
+                        return true;
+                    }
+
                     bool distanceToGroundTooShort = false;
 
                     // If gameObject is a tent
