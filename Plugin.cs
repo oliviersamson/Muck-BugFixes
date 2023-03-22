@@ -59,6 +59,9 @@ namespace BugFixes
 
             harmony.PatchAll(typeof(LobbyVisualsPatch.PrefixesAndPostfixes));
             Log.LogInfo("Patched LobbyVisuals.Awake()");
+
+            harmony.PatchAll(typeof(GuardianSpawnerPatch.StartTranspiler));
+            Log.LogInfo("Patched GuardianSpawner.Start()");
         }
     }
 }
