@@ -4,7 +4,7 @@ This mod aims to add various bug fixes to the game.
 
 To report a bug from the game that you would want fixed, or a problem with this mod, please raise an issue on [GitHub](https://github.com/oliviersamson/Muck-BugFixes/issues "GitHub")
 
-Note that all players in a lobby need to have this mod installed to play together.
+**Note that all players in a lobby need to have this mod installed to play together.**
 
 ## Fixes
 
