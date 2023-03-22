@@ -62,6 +62,9 @@ namespace BugFixes
 
             harmony.PatchAll(typeof(GuardianSpawnerPatch.StartTranspiler));
             Log.LogInfo("Patched GuardianSpawner.Start()");
+
+            harmony.PatchAll(typeof(UiControllerPatch.PrefixesAndPostfixes));
+            Log.LogInfo("Patched UiController.Awake()");
         }
     }
 }

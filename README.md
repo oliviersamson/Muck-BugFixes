@@ -20,6 +20,8 @@ Note that all players in a lobby need to have this mod installed to play togethe
 - Fixed a bug where items would not visually update in hotbar after boat repair
 - Fixed a bug where the usual UI background was not applied to the Game Settings UI in the Lobby menu UI
 - Fixed a bug where taking the boat or gem map in any other way than placing it with the mouse in your inventory wouldn't trigger its event
+- Fixed a bug where the back button on the settings menu while in pause wouldn't reactivate the pause UI
+- Fixed a bug where the prompt for changing a key bind was shown behind the settings UI while in a game
 
 ## TODO: Future fixes
 
@@ -31,8 +33,5 @@ Note that all players in a lobby need to have this mod installed to play togethe
 - Fix bug where Chief's spinning attack hitbox allows to be in contact with him while taking no damage
 - Fix bug where a player gets HP over his limit when entering combat with Bob
 - Fix bug where spectating a player when the gameover UI pops up will keep the camera movements enabled while browsing the menu.
-- Fix bug where changing control settings while in game doesn't focus the mouse controls back to the game
-- Fix bug where the prompt for changing a key bind isn't shown when changed while in a game
-- Fix bug where the back button on the settings menu while in pause gets you back into the game instantly with the mouse unfocused on the game
 - Fix bug where workbench texture is not the same between the craftable workbench and the workbench associated with the wood cutter
 - Fix bug where mob attack is delayed right after spawning
