@@ -24,7 +24,7 @@ namespace BugFixes
             Log = base.Logger;
 
             harmony = new Harmony(Globals.PLUGIN_NAME);
-
+           
             harmony.PatchAll(typeof(GameManagerPatch.PrefixesAndPostfixes));
             Log.LogInfo("Patched GameManager.Start()");
 
@@ -65,6 +65,10 @@ namespace BugFixes
 
             harmony.PatchAll(typeof(UiControllerPatch.PrefixesAndPostfixes));
             Log.LogInfo("Patched UiController.Awake()");
+
+            harmony.PatchAll(typeof(AchievementManagerPatch.PrefixesAndPostfixes));
+            Log.LogInfo("Patched AchievementManager.Awake()");
+            Log.LogInfo("Patched AchievementManager.AddKill()");
         }
     }
 }

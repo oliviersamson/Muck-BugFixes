@@ -22,11 +22,11 @@ To report a bug from the game that you would want fixed, or a problem with this 
 - Fixed a bug where taking the boat or gem map in any other way than placing it with the mouse in your inventory wouldn't trigger its event
 - Fixed a bug where the back button on the settings menu while in pause wouldn't reactivate the pause UI
 - Fixed a bug where the prompt for changing a key bind was shown behind the settings UI while in a game
+- Fixed a bug where the Underdog achievement couldn't be earned (if you already have enough buff kills, you will earn this achievement on game launch)
 
 ## TODO: Future fixes
 
 - Fix bug where wheat renders late.
-- Fix bug where some trees pop out of render before other trees further from them
 - Fix bug where structures can spawn with a too steep incline, making it impossible for the player to reach (especially important for tents and houses)
 - Fix bug where sound volume falloff with distance is inconsistent between different sounds (some can be heard across the map)
 - Fix bug where it is possible to see further into fog from the sides of the screen
