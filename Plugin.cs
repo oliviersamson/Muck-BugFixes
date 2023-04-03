@@ -74,6 +74,9 @@ namespace BugFixes
 
             harmony.PatchAll(typeof(MoveCameraPatch.PrefixesAndPostfixes));
             Log.LogInfo("Patched MoveCamera.SpectateCamera()");
+
+            harmony.PatchAll(typeof(DetectInteractablesPatch.UpdateTranspiler));
+            Log.LogInfo("Patched DetectInteractables.Update()");
         }
     }
 }
