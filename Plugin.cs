@@ -27,6 +27,7 @@ namespace BugFixes
            
             harmony.PatchAll(typeof(GameManagerPatch.PrefixesAndPostfixes));
             Log.LogInfo("Patched GameManager.Start()");
+            Log.LogInfo("Patched GameManager.Awake()");
 
             harmony.PatchAll(typeof(GenerateCampPatch.SpawnObjects_GameObject));
             Log.LogInfo("Patched GenerateCamp.SpawnObjects(GameObject, int, ConsistentRandom)");
