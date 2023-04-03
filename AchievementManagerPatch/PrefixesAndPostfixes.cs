@@ -28,6 +28,13 @@ namespace BugFixes.AchievementManagerPatch
                     }
                 }
             }
-        }       
+        }
+
+        [HarmonyPatch(typeof(AchievementManager), "StartGame")]
+        [HarmonyPostfix]
+        static void StartGamePostfix(AchievementManager __instance)
+        {
+            AchievementManager.Instance = Object.FindObjectOfType<AchievementManager>();
+        }
     }
 }

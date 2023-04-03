@@ -23,6 +23,7 @@ To report a bug from the game that you would want fixed, or a problem with this 
 - Fixed a bug where the back button on the settings menu while in pause wouldn't reactivate the pause UI
 - Fixed a bug where the prompt for changing a key bind was shown behind the settings UI while in a game
 - Fixed a bug where the Underdog achievement couldn't be earned (if you already have enough buff kills, you will earn this achievement on game launch)
+- Fixed a bug where the AchievementManager instance was null on Scene Reload after starting the first game after game launch, making it impossible to earn some achievements on subsequent games
 
 ## TODO: Future fixes
 

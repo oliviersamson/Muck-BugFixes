@@ -69,6 +69,7 @@ namespace BugFixes
             harmony.PatchAll(typeof(AchievementManagerPatch.PrefixesAndPostfixes));
             Log.LogInfo("Patched AchievementManager.Awake()");
             Log.LogInfo("Patched AchievementManager.AddKill()");
+            Log.LogInfo("Patched AchievementManager.StartGame()");
         }
     }
 }
