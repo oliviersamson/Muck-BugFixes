@@ -70,6 +70,9 @@ namespace BugFixes
             Log.LogInfo("Patched AchievementManager.Awake()");
             Log.LogInfo("Patched AchievementManager.AddKill()");
             Log.LogInfo("Patched AchievementManager.StartGame()");
+
+            harmony.PatchAll(typeof(MoveCameraPatch.PrefixesAndPostfixes));
+            Log.LogInfo("Patched MoveCamera.SpectateCamera()");
         }
     }
 }

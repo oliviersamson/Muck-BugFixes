@@ -24,6 +24,7 @@ To report a bug from the game that you would want fixed, or a problem with this 
 - Fixed a bug where the prompt for changing a key bind was shown behind the settings UI while in a game
 - Fixed a bug where the Underdog achievement couldn't be earned (if you already have enough buff kills, you will earn this achievement on game launch)
 - Fixed a bug where the AchievementManager instance was null on Scene Reload after starting the first game after game launch, making it impossible to earn some achievements on subsequent games
+- Fixed a bug where it was possible to move the camera with the gameover UI opened when playing a multiplayer game
 
 ## TODO: Future fixes
 
@@ -33,6 +34,5 @@ To report a bug from the game that you would want fixed, or a problem with this 
 - Fix bug where it is possible to see further into fog from the sides of the screen
 - Fix bug where Chief's spinning attack hitbox allows to be in contact with him while taking no damage
 - Fix bug where a player gets HP over his limit when entering combat with Bob
-- Fix bug where spectating a player when the gameover UI pops up will keep the camera movements enabled while browsing the menu.
 - Fix bug where workbench texture is not the same between the craftable workbench and the workbench associated with the wood cutter
 - Fix bug where mob attack is delayed right after spawning
