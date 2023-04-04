@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,16 @@ namespace BugFixes.LobbyVisualsPatch
             // Get LobbySettings UI element and apply new texture
             GameObject menuButton = GameObject.Find("LobbySettings");
             menuButton.GetComponent<RawImage>().texture = texture;
+
+            // Set render fogcolour to day sky
+            foreach (Material mat in Resources.FindObjectsOfTypeAll(typeof(Material)) as Material[])
+            {
+                string matName = mat.name.Replace(" (Instance)", "");
+                if (matName == "Skybox Cubemap Extended Day")
+                {                    
+                    mat.SetFloat("_Exposure", 1f);
+                }
+            }
         }
     }
 }
