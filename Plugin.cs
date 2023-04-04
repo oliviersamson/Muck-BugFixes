@@ -77,6 +77,9 @@ namespace BugFixes
 
             harmony.PatchAll(typeof(DetectInteractablesPatch.UpdateTranspiler));
             Log.LogInfo("Patched DetectInteractables.Update()");
+
+            harmony.PatchAll(typeof(PlayerStatusPatch.PrefixesAndPostfixes));
+            Log.LogInfo("Patched PlayerStatusPatch.Dracula()");
         }
     }
 }

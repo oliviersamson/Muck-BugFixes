@@ -28,6 +28,7 @@ To report a bug from the game that you would want fixed, or a problem with this 
 - Fixed a bug where a layout element in the GameOverUI was too long and would exceed the enclosing UI element.
 - Fixed a bug where being too close to something wouldn't let the player interact with it.
 - Fixed a bug where a black fade would appear in the sky of the main menu environment when coming back from a game.
+- Fixed a bug where a player could get HP over his limit from Dracula powerup after reaching reaching max stacks.
 
 ## TODO: Future fixes
 
@@ -36,7 +37,6 @@ To report a bug from the game that you would want fixed, or a problem with this 
 - Fix bug where sound volume falloff with distance is inconsistent between different sounds (some can be heard across the map)
 - Fix bug where it is possible to see further into fog from the sides of the screen
 - Fix bug where Chief's spinning attack hitbox allows to be in contact with him while taking no damage
-- Fix bug where a player gets HP over his limit when entering combat with Bob
 - Fix bug where workbench texture is not the same between the craftable workbench and the workbench associated with the wood cutter
 - Fix bug where mob attack is delayed right after spawning
 - Fix bug where the last attack received before dying isn't counted for the "Damage Received" stat at the end of game
