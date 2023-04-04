@@ -19,7 +19,7 @@ namespace BugFixes.LobbyVisualsPatch
             GameObject menuButton = GameObject.Find("LobbySettings");
             menuButton.GetComponent<RawImage>().texture = texture;
 
-            // Set render fogcolour to day sky
+            // Set skybox exposure to full
             foreach (Material mat in Resources.FindObjectsOfTypeAll(typeof(Material)) as Material[])
             {
                 string matName = mat.name.Replace(" (Instance)", "");

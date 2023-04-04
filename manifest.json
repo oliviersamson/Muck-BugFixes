@@ -1,6 +1,6 @@
 {
   "name": "BugFixes",
-  "version_number": "1.5.0",
+  "version_number": "1.6.0",
   "website_url": "https://github.com/oliviersamson/Muck-BugFixes",
   "description": "Mod that aims to add various bug fixes to the game.",
   "dependencies": [ "BepInEx-BepInExPack_Muck-5.4.1101" ]
