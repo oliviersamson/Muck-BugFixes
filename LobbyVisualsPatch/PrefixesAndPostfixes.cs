@@ -9,6 +9,7 @@ namespace BugFixes.LobbyVisualsPatch
     {
         [HarmonyPatch(typeof(LobbyVisuals), "Awake")]
         [HarmonyPostfix]
+        [HarmonyPriority(Priority.First)]
         static void AwakePostfix()
         {
             // Get background texture from another UI element
@@ -28,6 +29,16 @@ namespace BugFixes.LobbyVisualsPatch
                     mat.SetFloat("_Exposure", 1f);
                 }
             }
+
+            // Fix "Copy to Clipboard" staying black
+            Button button = GameObject.Find("MenuButton").GetComponent<Button>();
+            button.onClick.AddListener(
+                () => {
+
+                    AccessTools.Method(typeof(Button), "InstantClearState").Invoke(button, null);
+                    AccessTools.Method(typeof(Button), "DoStateTransition").Invoke(button, new object[] { 1, true });
+                });
+
         }
     }
 }

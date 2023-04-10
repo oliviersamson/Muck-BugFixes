@@ -29,6 +29,7 @@ To report a bug from the game that you would want fixed, or a problem with this 
 - Fixed a bug where being too close to something wouldn't let the player interact with it.
 - Fixed a bug where a black fade would appear in the sky of the main menu environment when coming back from a game.
 - Fixed a bug where a player could get HP over his limit from Dracula powerup after reaching reaching max stacks.
+- Fixed a bug where the "Copy to clipboard" button text would stay black after clicking even if the mouse was not hovering the button.
 
 ## TODO: Future fixes
 
@@ -41,3 +42,5 @@ To report a bug from the game that you would want fixed, or a problem with this 
 - Fix bug where mob attack is delayed right after spawning
 - Fix bug where the last attack received before dying isn't counted for the "Damage Received" stat at the end of game
 - Fix bug where changing resolution doesn't seem to save the new resolution properly (even though it is correctly applied)
+- Fix bug where mob kills triggered on island leave are counted towards the total kills of the host
+- Fix bug where some actions are still possible with the map opened
